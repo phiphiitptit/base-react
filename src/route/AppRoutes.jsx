@@ -1,16 +1,17 @@
-import {
-  MenuFoldOutlined,
-  MenuUnfoldOutlined,
-  UploadOutlined,
-  UserOutlined,
-  VideoCameraOutlined,
-} from "@ant-design/icons";
-import { Layout, Menu } from "antd";
+import { MenuFoldOutlined, MenuUnfoldOutlined } from "@ant-design/icons";
+import { Layout } from "antd";
 import { useState } from "react";
-import { BrowserRouter as Router, useNavigate } from "react-router-dom";
+import { Navigate, Route, Routes, useNavigate } from "react-router-dom";
+import { MenuAdmin } from "./component/MenuAdmin";
+import { Dashboard } from "../pages/admin/dashboard";
+import { UserManager } from "../pages/admin/user";
+import { HomeworkManager } from "../pages/admin/homework";
 
 const { Header, Sider, Content } = Layout;
 export const ManageRoute = () => {
+  var navigate = useNavigate();
+  // console.log("navigate", navigate);
+
   const [collapsed, setCollapsed] = useState(false);
   var history = useNavigate();
 
@@ -21,32 +22,12 @@ export const ManageRoute = () => {
     <Layout>
       <Sider trigger={null} collapsible collapsed={collapsed}>
         <div className="logo" />
-        <Menu
-          theme="dark"
-          mode="inline"
-          defaultSelectedKeys={["1"]}
-          items={[
-            {
-              key: "1",
-              icon: <UserOutlined />,
-              label: "nav 1",
-            },
-            {
-              key: "2",
-              icon: <VideoCameraOutlined />,
-              label: "nav 2",
-            },
-            {
-              key: "3",
-              icon: <UploadOutlined />,
-              label: "nav 3",
-            },
-          ]}
-        />
+        <MenuAdmin />
       </Sider>
+
       <Layout className="site-layout">
         <Header className="site-layout-background" style={{ padding: 0 }}>
-          {collapsed ? (
+          {!collapsed ? (
             <MenuUnfoldOutlined onClick={handleChangeMenu} />
           ) : (
             <MenuFoldOutlined onClick={handleChangeMenu} />
@@ -60,7 +41,24 @@ export const ManageRoute = () => {
             minHeight: 280,
           }}
         >
-          Content
+          <Routes>
+            <Route //localhost:3000/admin/*
+              path="/*"
+              element={<Navigate replace to="/admin/dashboard" />} // redirect localhost:3000/admin/dashboard
+            />
+            <Route
+              path="/dashboard"
+              element={<Dashboard />} // localhost:3000/admin/dashboard
+            />
+            <Route
+              path="/usermanager"
+              element={<UserManager />} // localhost:3000/admin/usermanager
+            />
+            <Route
+              path="/homeworkmanager"
+              element={<HomeworkManager />} // localhost:3000/admin/homeworkmanager
+            />
+          </Routes>
         </Content>
       </Layout>
     </Layout>

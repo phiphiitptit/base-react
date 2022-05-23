@@ -8,7 +8,7 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<ManageRoute />} />
+        <Route path="/admin/*" element={<ManageRoute />} />
       </Routes>
     </BrowserRouter>
   );
