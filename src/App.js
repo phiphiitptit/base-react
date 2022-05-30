@@ -1,7 +1,7 @@
 import logo from './logo.svg';
 import './App.css';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ManageRoute } from "./route/AppRoutes";
+import { ManageRoute, PublicRoute } from "./route/AppRoutes";
 import "antd/dist/antd.css";
 
 function App() {
@@ -9,6 +9,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/admin/*" element={<ManageRoute />} />
+        <Route path="/*" element={<PublicRoute />} />
       </Routes>
     </BrowserRouter>
   );
